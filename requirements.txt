@@ -1,3 +1,5 @@
 fastapi
 uvicorn
 sqlalchemy
+sublist3r
+httpx
