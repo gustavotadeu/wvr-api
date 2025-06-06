@@ -8,10 +8,8 @@ from fastapi.testclient import TestClient
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 # Ensure database URL is set before importing app modules
-TEST_DB = '/tmp/test.db'
-if os.path.exists(TEST_DB):
-    os.remove(TEST_DB)
-os.environ['DATABASE_URL'] = f'sqlite:///{TEST_DB}'
+os.environ['DATABASE_URL'] = 'sqlite:///:memory:'
+os.environ['ADMIN_TOKEN'] = 'admintest'
 
 from app.models import Base
 from app.database import engine, SessionLocal
