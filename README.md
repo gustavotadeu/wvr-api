@@ -1,8 +1,6 @@
 # WVR API
 
-API hub para ferramentas de OSINT e Cybersecurity utilizando FastAPI. Atualmente
-suporta execuções do Nmap e permite gerenciar chaves de acesso por meio de API
-keys.
+API hub para ferramentas de OSINT e Cybersecurity utilizando FastAPI. Atualmente suporta execuções do Nmap, busca de subdomínios com Sublist3r e permite gerenciar chaves de acesso por meio de API keys.
 
 ## Executando com Docker
 
@@ -93,5 +91,30 @@ Resposta:
   "target": "scanme.nmap.org",
   "options": "-sV",
   "result": "...saída do nmap..."
+}
+```
+
+
+### POST `/api/v1/subdomains/scan`
+
+Executa uma enumeração de subdomínios utilizando o Sublist3r. É necessário enviar a API key no cabeçalho `Authorization: Bearer <API_KEY>`.
+
+Parâmetros (query):
+
+- `domain` (**obrigatório**) &mdash; domínio a ser pesquisado.
+
+Exemplo:
+
+```bash
+curl -X POST "http://localhost:8000/api/v1/subdomains/scan?domain=example.com" \
+  -H "Authorization: Bearer <API_KEY>"
+```
+
+Resposta:
+
+```json
+{
+  "domain": "example.com",
+  "subdomains": ["www.example.com", "blog.example.com"]
 }
 ```
